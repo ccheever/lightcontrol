@@ -1,3 +1,5 @@
+import Exponent from 'exponent';
+
 import React from 'react';
 import {
   Image,
@@ -10,7 +12,38 @@ import {
   View,
 } from 'react-native';
 
+import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+
 import { MonoText } from '../components/StyledText';
+
+
+
+class Button extends React.Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={this.props.onPress}>
+        <View style={[{
+            borderRadius: 10,
+            borderColor: '#888888',
+            borderStyle: 'solid',
+            borderWidth: 1.5,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: 6,
+            backgroundColor: '#ffffff',
+        }, this.props.style]}>
+          <Text style={[{
+              marginVertical: 8,
+              fontSize: 24,
+              fontWeight: 'bold',
+              textAlign: 'center',
+              color: '#333333',
+          }, this.props.labelStyle]}>{this.props.label}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
 
 export default class HomeScreen extends React.Component {
   static route = {
@@ -19,55 +52,39 @@ export default class HomeScreen extends React.Component {
     },
   }
 
+  async _switchLightAsync(room, setting) {
+    let url = `https://a08ce7f3.ngrok.io/switch/${room}/${setting}`;
+    console.log("Making request to " + url);
+    await fetch(url);
+    console.log("Done making request.");
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView
-          style={styles.container}
-          contentContainerStyle={styles.contentContainer}>
 
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={require('../assets/images/exponent-wordmark.png')}
-              style={styles.welcomeImage}
-            />
+        <View style={{
+            marginTop: 30,
+            marginHorizontal: 20,
+        }}>
+          <Text style={styles.sectionLabel}>Charlie's Room</Text>
+          <View style={styles.buttonGroup}>
+            <Button label="On" onPress={() => {
+                this._switchLightAsync('charlie', 100);
+            }} />
+            <Button label="Off" onPress={() => {
+                this._switchLightAsync('charlie', 0);
+            }} />
           </View>
 
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>
-              Get started by opening
-            </Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
+          <Text style={styles.sectionLabel}>All Lights</Text>
+          <View style={styles.buttonGroup}>
+            <Button label="On" />
+            <Button label="Off" />
           </View>
 
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>
-                Help, it didn’t automatically reload!
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>
-            This is a tab bar. You can edit it in:
-          </Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/RootNavigation.js</MonoText>
-          </View>
         </View>
+
       </View>
     );
   }
@@ -188,4 +205,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#2e78b7',
   },
+  sectionLabel: {
+    fontSize: 30,
+    color: '#333333',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buttonGroup: {
+    marginTop: 5,
+    marginBottom: 25,
+  }
 });
+
+Exponent.registerRootComponent(HomeScreen);

@@ -1,0 +1,34 @@
+{
+  "name": "lightcontrol-server",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "repository": {
+    "url": "https://github.com/ccheever/lightcontrol.git",
+    "type": "git"
+  },
+  "author": "Charlie Cheever <ccheever@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.16.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0",
+    "babel-preset-stage-1": "^6.16.0",
+    "babel-preset-stage-2": "^6.17.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.11.6",
+    "express": "^4.14.0",
+    "lodash": "^4.16.4",
+    "node-fetch": "^1.6.3",
+    "radiora2": "^0.0.1"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/babel src --out-dir lib --source-maps",
+    "watch": "./node_modules/.bin/babel src --out-dir lib --source-maps --watch",
+    "postinstall": "npm run build",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

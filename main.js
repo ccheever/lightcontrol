@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-Exponent.registerRootComponent(AppContainer);
+// Exponent.registerRootComponent(AppContainer);

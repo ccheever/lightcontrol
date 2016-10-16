@@ -26,8 +26,27 @@ app.get('/switch/:room/:set', (req, res) => {
       break;
 
     case 'all':
-      lutronClient.allLights(set);
-      res.send(`Set all lights to ${set}`);
+      let setBool = !(set === 0);
+      lutronClient.allLights(setBool);
+      res.send(`Set all lights to ${setBool}`);
+      break;
+
+    case 'francie':
+      try {
+        lutronClient.franciesRoomLights(set);
+      } catch (e) {
+        console.error(e);
+      }
+      res.send(`Set Francie's Room lights to ${set}`);
+      break;
+
+    case 'common':
+
+      // This only allows booleans
+      set = !!set;
+
+      lutronClient.commonAreaLights(set);
+      res.send(`Set Common Area lights to ${set}`);
       break;
 
     default:

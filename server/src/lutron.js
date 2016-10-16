@@ -28,6 +28,26 @@ export class LutronClient {
     }
   }
 
+  franciesRoomLights(x) {
+    if (_.isBoolean(x)) {
+      if (x) {
+        x = 100.0;
+      } else {
+        x = 0.0;
+      }
+    }
+    process.nextTick(() => {
+      process.nextTick(() => {
+        process.nextTick(() => {
+          this.client.setDimmer(16, x);
+        });
+        this.client.setDimmer(31, x);
+      });
+      this.client.setDimmer(17, x);
+    });
+
+  }
+
   allLights(x) {
     if (_.isBoolean(x)) {
       if (x) {

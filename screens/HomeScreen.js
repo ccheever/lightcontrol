@@ -52,8 +52,17 @@ export default class HomeScreen extends React.Component {
     },
   }
 
+  async _getLightcontrolUrlAsync() {
+    let result = await fetch('http://ccheever.com/x/lightcontrol.url');
+    let url = await result.text();
+    return url.trim();
+  }
+
   async _switchLightAsync(room, setting) {
-    let url = `https://a08ce7f3.ngrok.io/switch/${room}/${setting}`;
+    console.log(`_switchLightAsync room=${room} setting=${setting}`);
+    let baseUrl = await this._getLightcontrolUrlAsync();
+    console.log(`baseUrl=${baseUrl}`);
+    let url = `${baseUrl}/switch/${room}/${setting}`;
     console.log("Making request to " + url);
     await fetch(url);
     console.log("Done making request.");
@@ -79,8 +88,12 @@ export default class HomeScreen extends React.Component {
 
           <Text style={styles.sectionLabel}>All Lights</Text>
           <View style={styles.buttonGroup}>
-            <Button label="On" />
-            <Button label="Off" />
+            <Button label="On" onPress={() => {
+                this._switchLightAsync('all', 100);
+            }} />
+            <Button label="Off" onPress={() => {
+                this._switchLightAsync('all', 0);
+            }} />
           </View>
 
         </View>

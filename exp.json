@@ -6,16 +6,23 @@
   "version": "1.0.0",
   "orientation": "portrait",
   "primaryColor": "#cccccc",
-  "iconUrl": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+  "iconUrl": "https://www.materialui.co/materialIcons/action/lightbulb_outline_black_192x192.png",
   "notification": {
-    "iconUrl": "https://s3.amazonaws.com/exp-us-standard/placeholder-push-icon-blue-circle.png",
+    "iconUrl": "https://www.materialui.co/materialIcons/action/lightbulb_outline_black_192x192.png",
     "color": "#000000"
   },
   "loading": {
-    "iconUrl": "https://s3.amazonaws.com/exp-brand-assets/ExponentEmptyManifest_192.png",
+    "iconUrl": "https://www.materialui.co/materialIcons/action/lightbulb_outline_black_192x192.png",
     "hideExponentText": false
   },
   "packagerOpts": {
     "assetExts": ["ttf"]
+  },
+  "ios": {
+    "bundleIdentifier": "com.ccheever.lightcontrol",
+  },
+  "android": {
+    "package": "com.ccheever.lightcontrol",
   }
+
 }

@@ -12,11 +12,15 @@ import {
   View,
 } from 'react-native';
 
-import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+// import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
+// import Exponent from 'exponent';
+
 
 import { MonoText } from '../components/StyledText';
 
+import Dimensions from 'Dimensions';
 
+const {height, width} = Dimensions.get('window');
 
 class Button extends React.Component {
   render() {
@@ -30,14 +34,17 @@ class Button extends React.Component {
             justifyContent: 'center',
             alignItems: 'center',
             marginVertical: 6,
-            backgroundColor: '#ffffff',
+            backgroundColor: '#fcfcfc',
+            flex: 1,
+            width: width / 2.4,
         }, this.props.style]}>
           <Text style={[{
-              marginVertical: 8,
-              fontSize: 24,
+              marginVertical: 16,
+              fontSize: 19,
               fontWeight: 'bold',
               textAlign: 'center',
-              color: '#333333',
+              color: '#555555',
+              flex: 1,
           }, this.props.labelStyle]}>{this.props.label}</Text>
         </View>
       </TouchableOpacity>
@@ -53,7 +60,7 @@ export default class HomeScreen extends React.Component {
   }
 
   async _getLightcontrolUrlAsync() {
-    let result = await fetch('http://ccheever.com/x/lightcontrol.url');
+    let result = await fetch('http://ccheever.com/x/lightcontrol.url?' + Math.random());
     let url = await result.text();
     return url.trim();
   }
@@ -73,27 +80,59 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
 
         <View style={{
-            marginTop: 30,
-            marginHorizontal: 20,
+            marginVertical: 22,
+            marginHorizontal: 6,
+            flex: 1,
+            // backgroundColor: 'red',
+            justifyContent: 'space-around',
         }}>
-          <Text style={styles.sectionLabel}>Charlie's Room</Text>
-          <View style={styles.buttonGroup}>
-            <Button label="On" onPress={() => {
-                this._switchLightAsync('charlie', 100);
-            }} />
-            <Button label="Off" onPress={() => {
-                this._switchLightAsync('charlie', 0);
-            }} />
+
+          <View style={styles.buttonSection}>
+            <Text style={styles.sectionLabel}>All Lights</Text>
+            <View style={styles.buttonGroup}>
+              <Button label="Off" onPress={() => {
+                  this._switchLightAsync('all', 0);
+              }} />
+              <Button label="On" onPress={() => {
+                  this._switchLightAsync('all', 100);
+              }} />
+            </View>
           </View>
 
-          <Text style={styles.sectionLabel}>All Lights</Text>
-          <View style={styles.buttonGroup}>
-            <Button label="On" onPress={() => {
-                this._switchLightAsync('all', 100);
-            }} />
-            <Button label="Off" onPress={() => {
-                this._switchLightAsync('all', 0);
-            }} />
+          <View style={styles.buttonSection}>
+            <Text style={styles.sectionLabel}>Charlie's Room</Text>
+            <View style={styles.buttonGroup}>
+              <Button label="Off" onPress={() => {
+                  this._switchLightAsync('charlie', 0);
+              }} />
+              <Button label="On" onPress={() => {
+                  this._switchLightAsync('charlie', 100);
+              }} />
+            </View>
+          </View>
+
+          <View style={styles.buttonSection}>
+            <Text style={styles.sectionLabel}>Francie's Room</Text>
+            <View style={styles.buttonGroup}>
+              <Button label="Off" onPress={() => {
+                  this._switchLightAsync('francie', 0);
+              }} />
+              <Button label="On" onPress={() => {
+                  this._switchLightAsync('francie', 100);
+              }} />
+            </View>
+          </View>
+
+          <View style={styles.buttonSection}>
+            <Text style={styles.sectionLabel}>Living Area</Text>
+            <View style={styles.buttonGroup}>
+              <Button label="Off" onPress={() => {
+                  this._switchLightAsync('common', 0);
+              }} />
+              <Button label="On" onPress={() => {
+                  this._switchLightAsync('common', 100);
+              }} />
+            </View>
           </View>
 
         </View>
@@ -219,14 +258,21 @@ const styles = StyleSheet.create({
     color: '#2e78b7',
   },
   sectionLabel: {
-    fontSize: 30,
-    color: '#333333',
-    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#666666',
+    fontWeight: '600',
     textAlign: 'center',
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 2,
+    borderStyle: 'solid',
   },
   buttonGroup: {
     marginTop: 5,
     marginBottom: 25,
+    flexDirection: 'row',
+    flex: 1,
+    // backgroundColor: 'purple',
+    justifyContent: 'space-around',
   }
 });
 
